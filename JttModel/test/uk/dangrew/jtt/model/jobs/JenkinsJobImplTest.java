@@ -9,6 +9,7 @@
 package uk.dangrew.jtt.model.jobs;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +23,7 @@ import org.junit.Test;
 
 import javafx.beans.value.ChangeListener;
 import javafx.util.Pair;
+import uk.dangrew.jtt.model.commit.Commit;
 import uk.dangrew.jtt.model.nodes.JenkinsNode;
 import uk.dangrew.jtt.model.nodes.JenkinsNodeImpl;
 import uk.dangrew.jtt.model.tests.TestCase;
@@ -227,6 +229,14 @@ public class JenkinsJobImplTest {
       assertThat( systemUnderTest.testTotalCount().get(), is( JenkinsJob.DEFAULT_TOTAL_TEST_COUNT ) );
       systemUnderTest.testTotalCount().set( 1234 );
       assertThat( systemUnderTest.testTotalCount().get(), is( 1234 ) );
+   }//End Method
+   
+   @Test public void shouldProvideCommits(){
+      assertThat( systemUnderTest.commits(), is( empty() ) );
+      
+      Commit commit = mock( Commit.class );
+      systemUnderTest.commits().add( commit );
+      assertThat( systemUnderTest.commits(), contains( commit ) );
    }//End Method
 
 }//End Class

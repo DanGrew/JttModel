@@ -13,6 +13,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import uk.dangrew.jtt.model.commit.Commit;
 import uk.dangrew.jtt.model.nodes.JenkinsNode;
 import uk.dangrew.jtt.model.tests.TestCase;
 import uk.dangrew.jtt.model.users.JenkinsUser;
@@ -115,6 +116,12 @@ public interface JenkinsJob {
     * @return the {@link ObservableList}.
     */
    public ObservableList< JenkinsUser > culprits();
+   
+   /**
+    * Proivdes an {@link ObservableList} of {@link Commit}s detected by the current build of the job.
+    * @return the {@link Commit}s.
+    */
+   public ObservableList< Commit > commits();
 
    /**
     * Provides an {@link ObservableList} of {TestCase}s for the failure of the

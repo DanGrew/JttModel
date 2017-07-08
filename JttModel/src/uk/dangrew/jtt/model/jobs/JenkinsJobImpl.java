@@ -17,6 +17,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
+import uk.dangrew.jtt.model.commit.Commit;
 import uk.dangrew.jtt.model.nodes.JenkinsNode;
 import uk.dangrew.jtt.model.tests.TestCase;
 import uk.dangrew.jtt.model.users.JenkinsUser;
@@ -34,6 +35,7 @@ public class JenkinsJobImpl implements JenkinsJob {
    private final ObjectProperty< Long > buildTimestamp;
    private final ObjectProperty< JenkinsNode > builtOn;
    private final ObservableList< JenkinsUser > culprits;
+   private final ObservableList< Commit > commits;
    private final ObservableList< TestCase > failingTestCases;
    private final ObjectProperty< Long > totalBuildTime;
    private final ObjectProperty< Integer > testFailureCount;
@@ -60,6 +62,7 @@ public class JenkinsJobImpl implements JenkinsJob {
       this.buildTimestamp = new SimpleObjectProperty<>( DEFAULT_BUILD_TIMESTAMP );
       this.builtOn = new SimpleObjectProperty<>( DEFAULT_LAST_BUILT_ON );
       this.culprits = FXCollections.observableArrayList();
+      this.commits = FXCollections.observableArrayList();
       this.failingTestCases = FXCollections.observableArrayList();
       this.totalBuildTime = new SimpleObjectProperty<>( DEFAULT_TOTAL_BUILD_TIME );
       this.testFailureCount = new SimpleObjectProperty<>( DEFAULT_FAILURE_COUNT );
@@ -149,6 +152,13 @@ public class JenkinsJobImpl implements JenkinsJob {
     */
    @Override public ObservableList< JenkinsUser > culprits() {
       return culprits;
+   }//End Method
+   
+   /**
+    * {@inheritDoc}
+    */
+   @Override public ObservableList< Commit > commits() {
+      return commits;
    }//End Method
    
    /**
