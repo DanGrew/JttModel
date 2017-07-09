@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -20,6 +21,8 @@ import static org.mockito.Mockito.verify;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import javafx.beans.value.ChangeListener;
 import javafx.util.Pair;
@@ -38,10 +41,12 @@ import uk.dangrew.jtt.model.users.JenkinsUserImpl;
 public class JenkinsJobImplTest {
    
    private static final String JENKINS_JOB_NAME = "anyName";
-   private JenkinsJob systemUnderTest;
+   @Mock private JobSupplementors supplimentors;
+   private JenkinsJobImpl systemUnderTest;
    
    @Before public void initialiseSystemUnderTest(){
-      systemUnderTest = new JenkinsJobImpl( JENKINS_JOB_NAME );
+      MockitoAnnotations.initMocks( this );
+      systemUnderTest = new JenkinsJobImpl( JENKINS_JOB_NAME, supplimentors );
    }//End Method
 
    @Test public void shouldProvideNameProperty() {
@@ -237,6 +242,15 @@ public class JenkinsJobImplTest {
       Commit commit = mock( Commit.class );
       systemUnderTest.commits().add( commit );
       assertThat( systemUnderTest.commits(), contains( commit ) );
+   }//End Method
+   
+   @Test public void shouldProvideSuppliments(){
+      assertThat( systemUnderTest.supplements(), is( instanceOf( JobSupplements.class ) ) );
+      assertThat( systemUnderTest.supplements(), is( systemUnderTest.supplements() ) );
+   }//End Method
+   
+   @Test public void shouldAssociateSupplimentors(){
+      verify( supplimentors ).associate( systemUnderTest );
    }//End Method
 
 }//End Class

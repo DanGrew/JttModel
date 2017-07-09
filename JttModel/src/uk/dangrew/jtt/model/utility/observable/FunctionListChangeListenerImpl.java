@@ -38,10 +38,10 @@ public class FunctionListChangeListenerImpl< TypeT > implements ListChangeListen
     */
    @Override public void onChanged( Change< ? extends TypeT > change ) {
       while ( change.next() ) {
-         if ( change.wasAdded() ) {
+         if ( change.wasAdded() && addFunction != null ) {
             new ArrayList<>( change.getAddedSubList() ).forEach( addFunction::accept );
          }
-         if ( change.wasRemoved() ) {
+         if ( change.wasRemoved() && removeFunction != null ) {
             change.getRemoved().forEach( removeFunction::accept );
          }
       }

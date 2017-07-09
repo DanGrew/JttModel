@@ -41,12 +41,23 @@ public class JenkinsJobImpl implements JenkinsJob {
    private final ObjectProperty< Integer > testFailureCount;
    private final ObjectProperty< Integer > testSkipCount;
    private final ObjectProperty< Integer > testTotalCount;
+   private final JobSupplements supplements;
+   private final JobSupplementors supplementors;
    
    /**
     * Constructs a new {@link JenkinsJobImpl}.
     * @param name the name of the {@link JenkinsJob}.
     */
    public JenkinsJobImpl( String name ) {
+      this( name, new JobSupplementors() );
+   }//End Constructor
+   
+   /**
+    * Constructs a new {@link JenkinsJobImpl}.
+    * @param name the name of the {@link JenkinsJob}.
+    * @param supplementors the {@link JobSupplementors}.
+    */
+   JenkinsJobImpl( String name, JobSupplementors supplementors ) {
       if ( name == null ) {
          throw new IllegalArgumentException( "Null name provided for Jenkins Job." );
       }
@@ -68,6 +79,10 @@ public class JenkinsJobImpl implements JenkinsJob {
       this.testFailureCount = new SimpleObjectProperty<>( DEFAULT_FAILURE_COUNT );
       this.testSkipCount = new SimpleObjectProperty<>( DEFAULT_SKIP_COUNT );
       this.testTotalCount = new SimpleObjectProperty<>( DEFAULT_TOTAL_TEST_COUNT );
+      
+      this.supplements = new JobSupplements();
+      this.supplementors = supplementors;
+      this.supplementors.associate( this );
    }//End Constructor
 
    /**
@@ -194,6 +209,20 @@ public class JenkinsJobImpl implements JenkinsJob {
     */
    @Override public ObjectProperty< Integer > testTotalCount() {
       return testTotalCount;
+   }//End Method
+   
+   /**
+    * {@inheritDoc}
+    */
+   @Override public JobSupplements supplements() {
+      return supplements;
+   }//End Method
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override public String toString() {
+      return name.get();
    }//End Method
 
 }//End Class

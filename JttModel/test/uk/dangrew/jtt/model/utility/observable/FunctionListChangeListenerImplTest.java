@@ -53,6 +53,18 @@ public class FunctionListChangeListenerImplTest {
       Mockito.verifyNoMoreInteractions( addFunction, removeFunction );
    }//End Method
    
+   @Test public void shouldIgnoreNullRemoveFunction() {
+      systemUnderTest = new FunctionListChangeListenerImpl<>( addFunction, null );
+      Change< String > change = new SimpleRemovedChange<>( 0, 0, testList.get( 3 ), testList );
+      systemUnderTest.onChanged( change );
+   }//End Method
+   
+   @Test public void shouldIgnoreNullAddFunction() {
+      systemUnderTest = new FunctionListChangeListenerImpl<>( null, removeFunction );
+      Change< String > change = new SimpleAddChange<>( 0, testList.size(), testList );
+      systemUnderTest.onChanged( change );
+   }//End Method
+   
    @Test public void shouldCallFunctionWhenRemoved() {
       Change< String > change = new SimpleRemovedChange<>( 0, 0, testList.get( 3 ), testList );
       systemUnderTest.onChanged( change );

@@ -115,10 +115,10 @@ public interface JenkinsJob {
     * last build.
     * @return the {@link ObservableList}.
     */
-   public ObservableList< JenkinsUser > culprits();
+   @Deprecated public ObservableList< JenkinsUser > culprits();
    
    /**
-    * Proivdes an {@link ObservableList} of {@link Commit}s detected by the current build of the job.
+    * Provides an {@link ObservableList} of {@link Commit}s detected by the current build of the job.
     * @return the {@link Commit}s.
     */
    public ObservableList< Commit > commits();
@@ -147,5 +147,11 @@ public interface JenkinsJob {
     * @return the property.
     */
    public ObjectProperty< Integer > testTotalCount();
+   
+   /**
+    * Access to properties that are supplemented by the system.
+    * @return the {@link JobSupplements}.
+    */
+   public JobSupplements supplements();
 
 }//End Interface
