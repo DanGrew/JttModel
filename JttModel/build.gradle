@@ -2,7 +2,7 @@
  * PLGUINS: apply all plugins needed for the build
  */
 plugins {
-    id "com.jfrog.bintray" version "1.6"
+    id "com.jfrog.bintray" version "1.8.1"
     id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
@@ -131,7 +131,7 @@ bintray {
     user = bintrayUser
     key = bintrayKey
     configurations = ['archives']
-    publications = ['core', 'runnable']
+    publications = ['core']
 
     publish = true //auto publish everything
 
