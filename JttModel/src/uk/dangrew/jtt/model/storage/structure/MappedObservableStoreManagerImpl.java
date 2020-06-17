@@ -8,13 +8,12 @@
  */
 package uk.dangrew.jtt.model.storage.structure;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import uk.dangrew.jtt.model.utility.observable.PrivatelyModifiableObservableListImpl;
-import uk.dangrew.sd.utility.synchronization.SynchronizedObservableList;
+import uk.dangrew.kode.synchronization.SynchronizedObservableList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The {@link MappedObservableStoreManagerImpl} provides an implementation of the {@link ObjectStoreManager} that
@@ -33,7 +32,7 @@ public class MappedObservableStoreManagerImpl< KeyTypeT, ObjectTypeT > implement
     */
    public MappedObservableStoreManagerImpl() {
       objectMap = new HashMap<>();
-      objectList = new SynchronizedObservableList<>( FXCollections.observableArrayList() );
+      objectList = new SynchronizedObservableList<>();
       publiclyAvailableObjectList = new PrivatelyModifiableObservableListImpl<>( objectList );
    }//End Constructor
    

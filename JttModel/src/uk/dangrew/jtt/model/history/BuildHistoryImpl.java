@@ -8,14 +8,14 @@
  */
 package uk.dangrew.jtt.model.history;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import uk.dangrew.jtt.model.build.JenkinsBuild;
 import uk.dangrew.jtt.model.jobs.JenkinsJob;
-import uk.dangrew.sd.utility.synchronization.SynchronizedObservableList;
+import uk.dangrew.kode.synchronization.SynchronizedObservableList;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implementation of the {@link BuildHistory} interface.

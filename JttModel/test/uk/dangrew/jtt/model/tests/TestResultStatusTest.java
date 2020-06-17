@@ -11,7 +11,7 @@ package uk.dangrew.jtt.model.tests;
 import org.junit.Test;
 
 import uk.dangrew.jtt.model.tests.TestResultStatus;
-import uk.dangrew.jtt.model.utility.TestCommon;
+import uk.dangrew.kode.TestCommon;
 
 /**
  * {@link TestResultStatus} test.

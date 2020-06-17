@@ -15,7 +15,7 @@ import uk.dangrew.jtt.model.tests.TestCase;
 import uk.dangrew.jtt.model.tests.TestCaseImpl;
 import uk.dangrew.jtt.model.tests.TestClass;
 import uk.dangrew.jtt.model.tests.TestClassImpl;
-import uk.dangrew.jtt.model.utility.TestCommon;
+import uk.dangrew.kode.TestCommon;
 
 /**
  * {@link TestClassImpl} test.

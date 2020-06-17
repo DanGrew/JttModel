@@ -11,11 +11,8 @@ package uk.dangrew.jtt.model.storage.structure;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import uk.dangrew.jtt.model.storage.structure.MappedObservableStoreManagerImpl;
-import uk.dangrew.jtt.model.storage.structure.ObjectStoreManager;
 import uk.dangrew.jtt.model.utility.observable.PrivatelyModifiableObservableListImpl;
-import uk.dangrew.sd.utility.TestCommon;
+import uk.dangrew.kode.TestCommon;
 
 /**
  * {@link MappedObservableStoreManagerImpl} test.
@@ -118,7 +115,7 @@ public class MappedObservableStoreManagerImplTest {
    }//End Method
 
    @Test public void addAndForeachShouldBeSynchronized() {
-      TestCommon.assertConcurrencyIsNotAnIssue( 
+      TestCommon.assertConcurrencyIsNotAnIssue(
                count -> systemUnderTest.store( "" + count, count ), 
                count -> systemUnderTest.objectList().forEach( item -> item.toString() ), 
                1000 

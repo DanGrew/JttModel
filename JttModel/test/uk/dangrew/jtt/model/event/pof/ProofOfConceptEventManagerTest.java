@@ -8,17 +8,16 @@
  */
 package uk.dangrew.jtt.model.event.pof;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import org.junit.Test;
+import uk.dangrew.kode.event.structure.Event;
+import uk.dangrew.kode.event.structure.EventSubscription;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
-import org.junit.Test;
-
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import uk.dangrew.jtt.model.event.structure.Event;
-import uk.dangrew.jtt.model.event.structure.EventSubscription;
 
 /**
  * {@link ProofOfConceptEventManager} test.
