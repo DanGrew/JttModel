@@ -13,8 +13,9 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import uk.dangrew.jtt.model.storage.structure.MappedObservableStoreManagerImpl;
-import uk.dangrew.jtt.model.storage.structure.ObjectStoreManager;
+import uk.dangrew.jtt.model.storage.database.TestClassKeyImpl;
+import uk.dangrew.kode.storage.structure.MappedObservableStoreManagerImpl;
+import uk.dangrew.kode.storage.structure.ObjectStoreManager;
 
 /**
  * Basic implementation of the {@link TestClass}.
@@ -40,7 +41,7 @@ public class TestClassImpl implements TestClass {
       this.name = new SimpleStringProperty( name );
       this.location = new SimpleStringProperty( location );
       this.duration = new SimpleDoubleProperty( DEFAULT_DURATION );
-      this.testCases = new MappedObservableStoreManagerImpl<>();
+      this.testCases = new MappedObservableStoreManagerImpl<>( t -> t.nameProperty().get() );
    }//End Constructor
 
    /**
@@ -90,14 +91,14 @@ public class TestClassImpl implements TestClass {
     * {@inheritDoc}
     */
    @Override public void addTestCase( TestCase testCase ) {
-      testCases.store( testCase.nameProperty().get(), testCase );
+      testCases.store( testCase );
    }//End Method
    
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasTestCase( String name ) {
-      return testCases.has( name );
+      return testCases.hasKey( name );
    }//End Method
    
    /**

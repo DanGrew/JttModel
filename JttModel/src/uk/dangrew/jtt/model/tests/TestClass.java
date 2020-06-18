@@ -55,26 +55,26 @@ public interface TestClass {
     * that shares the same name.
     * @param testCase the {@link TestCase} to add.
     */
-   public void addTestCase( TestCase testCase );
+   public void addTestCase(TestCase testCase);
    
    /**
     * Method to determine whether the {@link TestClass} has a {@link TestCase} matching the given name.
     * @param name the name of the {@link TestCase}.
     * @return true if found.
     */
-   public boolean hasTestCase( String name );
+   public boolean hasTestCase(String name);
    
    /**
     * Method to get the {@link TestCase} held by this {@link TestClass} for the given name.
     * @param name the name of the {@link TestCase} to get.
     * @return the {@link TestCase} found.
     */
-   public TestCase getTestCase( String name );
+   public TestCase getTestCase(String name);
    
    /**
     * Method to remove the given {@link TestCase} from the {@link TestClass}.
     * @param testCase the {@link TestCase} to remove.
     */
-   public void removeTestCase( TestCase testCase );
+   public void removeTestCase(TestCase testCase);
 
 }//End Interface

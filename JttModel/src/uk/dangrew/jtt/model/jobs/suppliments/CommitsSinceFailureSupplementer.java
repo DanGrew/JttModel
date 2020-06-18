@@ -10,7 +10,7 @@ package uk.dangrew.jtt.model.jobs.suppliments;
 
 import uk.dangrew.jtt.model.jobs.BuildResultStatus;
 import uk.dangrew.jtt.model.jobs.JenkinsJob;
-import uk.dangrew.jtt.model.utility.observable.FunctionListChangeListenerImpl;
+import uk.dangrew.kode.observable.FunctionListChangeListenerImpl;
 
 /**
  * The {@link CommitsSinceFailureSupplementer} is responsible for supplementing the {@link uk.dangrew.jtt.model.commit.Commit}s
@@ -21,13 +21,13 @@ public class CommitsSinceFailureSupplementer {
    private final JenkinsJob job;
    
    /**
-    * Constructs a new {@link CommitsSinceFailureSupplementor}.
+    * Constructs a new {@link CommitsSinceFailureSupplementer}.
     * @param job the associated {@link JenkinsJob} to supplement.
     */
    public CommitsSinceFailureSupplementer( JenkinsJob job ) {
       this.job = job;
       
-      job.commits().addListener( new FunctionListChangeListenerImpl<>( 
+      job.commits().addListener( new FunctionListChangeListenerImpl<>(
                null, job.supplements().commitsSinceLastFailure()::add 
       ) );
       job.buildProperty().addListener( ( s, o, n ) -> {

@@ -13,6 +13,7 @@ import uk.dangrew.jtt.model.jobs.JenkinsJob;
 import uk.dangrew.jtt.model.nodes.JenkinsNode;
 import uk.dangrew.jtt.model.storage.database.events.JenkinsJobPropertyListener;
 import uk.dangrew.jtt.model.storage.database.events.JenkinsUserPropertyListener;
+import uk.dangrew.jtt.model.tests.TestCase;
 import uk.dangrew.jtt.model.tests.TestClass;
 import uk.dangrew.jtt.model.users.JenkinsUser;
 

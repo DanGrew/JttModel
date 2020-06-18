@@ -8,20 +8,20 @@
  */
 package uk.dangrew.jtt.model.storage.database.events;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
+import uk.dangrew.kode.observable.FunctionListChangeListenerImpl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.ObservableList;
-import uk.dangrew.jtt.model.utility.observable.FunctionListChangeListenerImpl;
-
 /**
  * The {@link GlobalPropertyListenerImpl} is responsible for listening to the same {@link ObjectProperty} change
- * across all objects associated with the {@link JenkinsDatabase}.
+ * across all objects associated with the {@link uk.dangrew.jtt.model.storage.database.JenkinsDatabase}.
  * @param <ObjectTypeT> the type of object being changed.
  * @param <PropertyTypeT> the type of property being changed.
  */
@@ -44,7 +44,7 @@ public class GlobalPropertyListenerImpl< ObjectTypeT, PropertyTypeT > {
       this.propertyListeners = new HashMap<>();
       this.propertyGetterFunction = propertyGetterFunction;
       
-      databaseJobs.addListener( new FunctionListChangeListenerImpl<>( 
+      databaseJobs.addListener( new FunctionListChangeListenerImpl<>(
                this::listenForJobPropertyChange,
                this::removeObjectListeners
       ) );

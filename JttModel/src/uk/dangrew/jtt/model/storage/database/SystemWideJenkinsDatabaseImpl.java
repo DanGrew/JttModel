@@ -8,6 +8,8 @@
  */
 package uk.dangrew.jtt.model.storage.database;
 
+import uk.dangrew.kode.system.SystemWideObject;
+
 /**
  * The {@link SystemWideJenkinsDatabaseImpl} is a {@link SystemWideObject} for the {@link JenkinsDatabase}.
  */

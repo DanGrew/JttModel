@@ -17,10 +17,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
-import uk.dangrew.jtt.model.tests.TestCase;
-import uk.dangrew.jtt.model.tests.TestCaseImpl;
-import uk.dangrew.jtt.model.tests.TestClass;
-import uk.dangrew.jtt.model.tests.TestResultStatus;
 import uk.dangrew.kode.TestCommon;
 
 /**

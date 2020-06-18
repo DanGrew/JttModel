@@ -13,17 +13,17 @@ import uk.dangrew.jtt.model.jobs.JenkinsJob;
 import uk.dangrew.jtt.model.nodes.JenkinsNode;
 import uk.dangrew.jtt.model.storage.database.events.JenkinsJobPropertyListener;
 import uk.dangrew.jtt.model.storage.database.events.JenkinsUserPropertyListener;
-import uk.dangrew.jtt.model.storage.structure.MappedObservableStoreManagerImpl;
-import uk.dangrew.jtt.model.storage.structure.ObjectStoreManager;
 import uk.dangrew.jtt.model.tests.TestClass;
 import uk.dangrew.jtt.model.users.JenkinsUser;
+import uk.dangrew.kode.storage.structure.MappedObservableStoreManagerImpl;
+import uk.dangrew.kode.storage.structure.ObjectStoreManager;
 
 /**
  * Basic implementation of the {@link JenkinsDatabase}.
  */
 public class JenkinsDatabaseImpl implements JenkinsDatabase {
 
-   private ObjectStoreManager< TestClassKey, TestClass > testClasses;
+   private ObjectStoreManager< TestClassKey, TestClass> testClasses;
    private ObjectStoreManager< String, JenkinsJob > jenkinsJobs;
    private ObjectStoreManager< String, JenkinsUser > jenkinsUsers;
    private ObjectStoreManager< String, JenkinsNode > jenkinsNodes;
@@ -34,35 +34,35 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
     * Constructs a new {@link JenkinsDatabaseImpl}.
     */
    JenkinsDatabaseImpl() {
-      testClasses = new MappedObservableStoreManagerImpl<>();
-      jenkinsJobs = new MappedObservableStoreManagerImpl<>();
-      jenkinsUsers = new MappedObservableStoreManagerImpl<>();
-      jenkinsNodes = new MappedObservableStoreManagerImpl<>();
+      testClasses = new MappedObservableStoreManagerImpl<>( t -> new TestClassKeyImpl( t.nameProperty().get(), t.locationProperty().get() ) );
+      jenkinsJobs = new MappedObservableStoreManagerImpl<>( j -> j.nameProperty().get() );
+      jenkinsUsers = new MappedObservableStoreManagerImpl<>( u -> u.nameProperty().get() );
+      jenkinsNodes = new MappedObservableStoreManagerImpl<>( n -> n.nameProperty().get() );
       jenkinsJobProperties = new JenkinsJobPropertyListener( this );
       jenkinsUserProperties = new JenkinsUserPropertyListener( this );
    }//End Constructor
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasNoTestClasses() {
       return testClasses.isEmpty();
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasNoJenkinsJobs() {
       return jenkinsJobs.isEmpty();
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasNoJenkinsUsers() {
       return jenkinsUsers.isEmpty();
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -74,51 +74,51 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
     * {@inheritDoc}
     */
    @Override public boolean hasTestClass( TestClassKey testClassKey ) {
-      return testClasses.has( testClassKey );
+      return testClasses.hasKey( testClassKey );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasJenkinsJob( String key ) {
-      return jenkinsJobs.has( key );
+      return jenkinsJobs.hasKey( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasJenkinsUser( String key ) {
-      return jenkinsUsers.has( key );
+      return jenkinsUsers.hasKey( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean hasJenkinsNode( String key ) {
-      return jenkinsNodes.has( key );
+      return jenkinsNodes.hasKey( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean containsTestClass( TestClass testClass ) {
       return testClasses.objectList().contains( testClass );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean containsJenkinsJob( JenkinsJob jenkinsJob ) {
       return jenkinsJobs.objectList().contains( jenkinsJob );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public boolean containsJenkinsUser( JenkinsUser jenkinsUser ) {
       return jenkinsUsers.objectList().contains( jenkinsUser );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -133,14 +133,10 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( testClass == null ) {
          return;
       }
-      
-      TestClassKey representativeKey = new TestClassKeyImpl( 
-               testClass.nameProperty().get(), 
-               testClass.locationProperty().get() 
-      );
-      testClasses.store( representativeKey, testClass );
+
+      testClasses.store( testClass );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -151,10 +147,10 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsJob.nameProperty().get() == null ) {
          return;
       }
-      
-      jenkinsJobs.store( jenkinsJob.nameProperty().get(), jenkinsJob );
+
+      jenkinsJobs.store( jenkinsJob );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -165,10 +161,10 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsUser.nameProperty().get() == null ) {
          return;
       }
-      
-      jenkinsUsers.store( jenkinsUser.nameProperty().get(), jenkinsUser );
+
+      jenkinsUsers.store( jenkinsUser );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -179,8 +175,8 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsNode.nameProperty().get() == null ) {
          return;
       }
-      
-      jenkinsNodes.store( jenkinsNode.nameProperty().get(), jenkinsNode );
+
+      jenkinsNodes.store( jenkinsNode );
    }//End Method
 
    /**
@@ -189,56 +185,56 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
    @Override public TestClass getTestClass( TestClassKey testClassKey ) {
       return testClasses.get( testClassKey );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsJob getJenkinsJob( String key ) {
       return jenkinsJobs.get( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsUser getJenkinsUser( String key ) {
       return jenkinsUsers.get( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsNode getJenkinsNode( String key ) {
       return jenkinsNodes.get( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public TestClass removeTestClass( TestClassKey testClassKey ) {
       return testClasses.remove( testClassKey );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsJob removeJenkinsJob( String key ) {
       return jenkinsJobs.remove( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsUser removeJenkinsUser( String key ) {
       return jenkinsUsers.remove( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsNode removeJenkinsNode( String key ) {
       return jenkinsNodes.remove( key );
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -246,13 +242,13 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( testClass == null ) {
          return false;
       }
-      
-      TestClass removed = testClasses.remove( new TestClassKeyImpl( 
-               testClass.nameProperty().get(), testClass.locationProperty().get() ) 
+
+      TestClass removed = testClasses.remove( new TestClassKeyImpl(
+              testClass.nameProperty().get(), testClass.locationProperty().get() )
       );
       return removed != null;
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -260,11 +256,11 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsJob == null ) {
          return false;
       }
-      
+
       JenkinsJob removed = jenkinsJobs.remove( jenkinsJob.nameProperty().get() );
       return removed != null;
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -272,11 +268,11 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsUser == null ) {
          return false;
       }
-      
+
       JenkinsUser removed = jenkinsUsers.remove( jenkinsUser.nameProperty().get() );
       return removed != null;
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
@@ -284,7 +280,7 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
       if ( jenkinsNode == null ) {
          return false;
       }
-      
+
       JenkinsNode removed = jenkinsNodes.remove( jenkinsNode.nameProperty().get() );
       return removed != null;
    }//End Method
@@ -309,21 +305,21 @@ public class JenkinsDatabaseImpl implements JenkinsDatabase {
    @Override public ObservableList< JenkinsUser > jenkinsUsers() {
       return jenkinsUsers.objectList();
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public ObservableList< JenkinsNode > jenkinsNodes() {
       return jenkinsNodes.objectList();
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
    @Override public JenkinsJobPropertyListener jenkinsJobProperties() {
       return jenkinsJobProperties;
    }//End Method
-   
+
    /**
     * {@inheritDoc}
     */
